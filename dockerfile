@@ -1,15 +1,9 @@
-FROM centos:7
+FROM almalinux:8
 
-RUN yum install -y httpd zip unzip
+RUN dnf install -y httpd zip unzip
 
-ADD https://www.free-css.com/assets/files/free-css-templates/download/page254/photogenic.zip /var/www/html/
+COPY . /var/www/html/
 
-WORKDIR /var/www/html/
+EXPOSE 80
 
-RUN unzip photogenic.zip \
-    && cp -rvf photogenic/* . \
-    && rm -rf photogenic photogenic.zip
-
-CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
-
-EXPOSE 80 22
+CMD ["/usr/sbin/httpd","-D","FOREGROUND"]
